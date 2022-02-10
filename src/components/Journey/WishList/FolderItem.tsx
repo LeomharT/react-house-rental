@@ -47,7 +47,7 @@ class FolderItem extends Component<FolderItemProps, {}>
                             }} />,
                         <EllipsisOutlined key="ellipsis" onClick={e =>
                         {
-                            this.props.history.push('/UserCollection/0');
+                            this.props.history.push(`/UserCollection/${this.props.folderID}`);
                         }} />,
                     ]
                 }
