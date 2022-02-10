@@ -1,5 +1,5 @@
-import { CheckOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Card, Input } from "antd";
+import { CheckOutlined, DeleteOutlined, EditOutlined, RightOutlined } from '@ant-design/icons';
+import { Card, Input, Tooltip } from "antd";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import moment from "moment";
@@ -25,9 +25,15 @@ class FolderItem extends Component<FolderItemProps, {}>
             <Card className='FolderItem'
                 actions={
                     [
-                        <SettingOutlined disabled />,
+                        <Tooltip title='进入文件夹'>
+                            <RightOutlined key="ellipsis" onClick={e =>
+                            {
+                                this.props.history.push(`/UserCollection/${this.props.folderID}`);
+                            }} />
+                        </Tooltip>,
                         this.editing
-                            ? <CheckOutlined key="edit" onClick={(e) =>
+                            ?
+                            <CheckOutlined key="edit" onClick={(e) =>
                             {
                                 if (this.props.folderID === '0')
                                 {
@@ -45,10 +51,7 @@ class FolderItem extends Component<FolderItemProps, {}>
                                 }
                                 this.editing = !this.editing;
                             }} />,
-                        <EllipsisOutlined key="ellipsis" onClick={e =>
-                        {
-                            this.props.history.push(`/UserCollection/${this.props.folderID}`);
-                        }} />,
+                        <DeleteOutlined style={{ color: "red" }} />,
                     ]
                 }
                 cover={
