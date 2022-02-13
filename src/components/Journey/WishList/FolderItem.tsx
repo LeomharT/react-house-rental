@@ -13,6 +13,7 @@ interface FolderItemProps extends RouteComponentProps
     FolderExhibit?: any[];
     folderID: string,
     folderName: string,
+    createDate?: Date,
 }
 @observer
 class FolderItem extends Component<FolderItemProps, {}>
@@ -78,9 +79,20 @@ class FolderItem extends Component<FolderItemProps, {}>
                 }
             >
                 <Card.Meta title={
-                    this.editing ? <Input size='small' /> : "默认文件夹"
+                    this.editing ? <Input size='small' /> : this.props.folderName
                 }
-                    description={"创建于:" + moment(this.UserStore.authInfo?.userInfo?.createdAt as Date).format('YYYY年MM月DD日 hh时mm分ss秒')} />
+                    description={"创建于:" + (() =>
+                    {
+                        if (this.props.createDate)
+                        {
+                            return moment(this.props.createDate).format('YYYY年MM月DD日 hh时mm分ss秒');
+                        } else
+                        {
+                            return moment(this.UserStore.authInfo?.userInfo?.createdAt as Date).format('YYYY年MM月DD日 hh时mm分ss秒');
+                        }
+                    })()
+                    }
+                />
             </Card>
         );
     }

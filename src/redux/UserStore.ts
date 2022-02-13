@@ -4,7 +4,7 @@ import moment, { Moment } from "moment";
 import { RangeValue } from 'rc-picker/lib/interface';
 import { CONST_HOST } from "../components/Common/VariableGlobal";
 import { OrderState } from "../interfaces/PaymentInterface";
-import { RenewalOrderRecord, UserRentListItem } from "../interfaces/UserInferface";
+import { RenewalOrderRecord, UserFolder, UserRentListItem } from "../interfaces/UserInferface";
 import AuthStore from "./AuthStore";
 export default class UserStore
 {
@@ -19,6 +19,7 @@ export default class UserStore
     managementClient!: ManagementClient;           //管理模块
     @observable showChat: boolean = false;
     @observable renewalRecordList: RenewalOrderRecord[] = [];
+    @observable userCollecFolderList: UserFolder[] = [];
     InitAuthInfo = async () =>
     {
         this.authInfo = await this.AuthStore.GetAuthInfo();
@@ -121,6 +122,11 @@ export default class UserStore
         return res;
     };
 
+    InitUserFolders = async (uId: string) =>
+    {
+        let res = await (fetch(`${CONST_HOST}/GetUserAllFolders?uId=${uId}`));
+        this.userCollecFolderList = await res.json();
+    };
 
     private static _SingleInstance: UserStore;
     static GetInstance()

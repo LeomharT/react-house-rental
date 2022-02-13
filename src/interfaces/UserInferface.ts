@@ -44,3 +44,12 @@ export declare interface RenewalOrderRecord
     belongOrder: string,
     trade_no: string;
 }
+
+export interface UserFolder
+{
+    createDate: Date;
+    folderID: string;
+    folderName: string;
+    id: number;
+    userID: string;
+}
