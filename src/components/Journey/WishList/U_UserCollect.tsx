@@ -24,10 +24,12 @@ class U_UserCollect extends Component<RouteComponentProps, {}>
     tMapRef: RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
     pngMarker: any;
     @observable userCollections: HouseBaseInfo[] = [];
-    InitUserCollections = async () =>
+    InitUserCollections = async (folderId: string) =>
     {
         const { id } = this.UserStore?.authInfo?.userInfo;
-        this.userCollections = (await (await fetch(`${CONST_HOST}/GetAllUserCollections?id=${id}`)).json()) as HouseBaseInfo[];
+        this.userCollections = (
+            await (await fetch(`${CONST_HOST}/GetAllUserCollections?id=${id}&folderId=${folderId}`)).json()
+        ) as HouseBaseInfo[];
     };
     InitMap = async () =>
     {
@@ -146,9 +148,9 @@ class U_UserCollect extends Component<RouteComponentProps, {}>
     };
     async componentDidMount()
     {
-        console.log(this.props);
+        console.log();
         if (!this.UserStore.CheckForIsLogin()) return;
-        await this.InitUserCollections();
+        await this.InitUserCollections((this.props.match.params as { id: string; }).id);
         this.InitMap();
     }
     render()
@@ -192,7 +194,7 @@ class U_UserCollect extends Component<RouteComponentProps, {}>
                                                     h.hId,
                                                     this.InitUserCollections
                                                 );
-                                                await this.InitUserCollections();
+                                                await this.InitUserCollections((this.props.match.params as { id: string; }).id);
                                                 this.pngMarker.setGeometries([]);
                                                 const data = this.GetUserCollectMarker(this.userCollections);
                                                 this.pngMarker.add(data);
