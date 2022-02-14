@@ -41,6 +41,7 @@ export default class AddNewFolder extends Component<AddNewFolderProps, { loading
             message.error('创建失败');
         }
         this.setState({ loading: false });
+        this.UserStore.InitUserFolders();
         this.props.HandelOnClose(false);
     };
     render()

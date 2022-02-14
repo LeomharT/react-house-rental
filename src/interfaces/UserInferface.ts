@@ -50,6 +50,6 @@ export interface UserFolder
     createDate: Date;
     folderID: string;
     folderName: string;
-    id: number;
+    id: string;
     userID: string;
 }

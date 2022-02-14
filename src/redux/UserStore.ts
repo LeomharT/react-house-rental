@@ -1,8 +1,9 @@
+import { message } from "antd";
 import { AuthenticationClient, ManagementClient } from "authing-js-sdk";
 import { observable } from "mobx";
 import moment, { Moment } from "moment";
 import { RangeValue } from 'rc-picker/lib/interface';
-import { CONST_HOST } from "../components/Common/VariableGlobal";
+import { CONST_HOST, DataRowState } from "../components/Common/VariableGlobal";
 import { OrderState } from "../interfaces/PaymentInterface";
 import { RenewalOrderRecord, UserFolder, UserRentListItem } from "../interfaces/UserInferface";
 import AuthStore from "./AuthStore";
@@ -122,10 +123,29 @@ export default class UserStore
         return res;
     };
 
-    InitUserFolders = async (uId: string) =>
+    InitUserFolders = async () =>
     {
-        let res = await (fetch(`${CONST_HOST}/GetUserAllFolders?uId=${uId}`));
+        const uId = this.GetCurrentUserId();
+        let res = await fetch(`${CONST_HOST}/GetUserAllFolders?uId=${uId}`);
         this.userCollecFolderList = await res.json();
+    };
+
+    DeleteUserFolder = async (id: string, folderId: string) =>
+    {
+        const uId = this.GetCurrentUserId();
+        let res = await fetch(`${CONST_HOST}/DeleteUserCollectFolder`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+            body: JSON.stringify({ id, folderId, uId })
+        });
+        let result: DataRowState = await res.json();
+
+        if (result.affectedRows === 1) message.success("删除成功");
+        else message.success("删除失败");
+
+        this.InitUserFolders();
     };
 
     private static _SingleInstance: UserStore;

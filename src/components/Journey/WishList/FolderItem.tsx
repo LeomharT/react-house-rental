@@ -1,5 +1,5 @@
 import { CheckOutlined, DeleteOutlined, EditOutlined, RightOutlined } from '@ant-design/icons';
-import { Card, Input, Tooltip } from "antd";
+import { Card, Input, Popconfirm, Tooltip } from "antd";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 import moment from "moment";
@@ -33,8 +33,7 @@ class FolderItem extends Component<FolderItemProps, {}>
                             }} />
                         </Tooltip>,
                         this.editing
-                            ?
-                            <CheckOutlined key="edit" onClick={(e) =>
+                            ? <CheckOutlined key="edit" onClick={(e) =>
                             {
                                 if (this.props.folderID === '0')
                                 {
@@ -52,7 +51,22 @@ class FolderItem extends Component<FolderItemProps, {}>
                                 }
                                 this.editing = !this.editing;
                             }} />,
-                        <DeleteOutlined style={{ color: "red" }} />,
+                        this.props.folderID === '0'
+                            ? <DeleteOutlined style={{ color: "red" }} />
+                            : <Popconfirm
+                                title='确定要删除该文件夹吗'
+                                okText="确定"
+                                cancelText="取消"
+                                icon={< DeleteOutlined style={{ color: 'red' }} />}
+                                onConfirm={async (e) =>
+                                {
+                                    //@ts-ignore
+                                    await this.UserStore.DeleteUserFolder(this.props.id, this.props.folderID);
+                                }}
+                            >
+
+                                <DeleteOutlined style={{ color: "red" }} />
+                            </Popconfirm>,
                     ]
                 }
                 cover={

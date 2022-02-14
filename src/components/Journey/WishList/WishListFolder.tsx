@@ -18,8 +18,7 @@ class WishListFolder extends Component<RouteComponentProps, {}>
     HandelOnClose = (status: boolean) => this.isOpenAddNewFolder = status;
     async componentDidMount(): Promise<void>
     {
-        const uID = this.UserStore.GetCurrentUserId();
-        await this.UserStore.InitUserFolders(uID);
+        await this.UserStore.InitUserFolders();
     }
     render()
     {
