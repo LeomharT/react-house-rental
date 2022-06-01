@@ -1,6 +1,6 @@
 import { CSSProperties } from "styled-components";
 
-export const CONST_HOST = "http://localhost:3065";
+export const CONST_HOST = "http://47.107.42.46:3065";
 export enum LANGUAGE_REFER
 {
     AirCondition = "空调",

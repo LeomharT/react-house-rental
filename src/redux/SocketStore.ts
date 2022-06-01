@@ -3,7 +3,7 @@ import { MessageType } from "../components/HConsult/HConsult";
 
 export default class SocketStore
 {
-    socketIo = io("ws://localhost:3066");//socket.io实例
+    socketIo = io("ws://47.107.42.46:3066");//socket.io实例
     SocketSendStringMessage = (message: string, room?: string, userId?: string, callBack?: Function,) =>
     {
         if (room)
