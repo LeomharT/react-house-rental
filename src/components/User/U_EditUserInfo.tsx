@@ -29,7 +29,7 @@ class U_EditUserInfo extends Component<U_EditUserInfoProps, {}>
     @action
     UpdateUserProfile = (value: any) =>
     {
-        const updates: UpdateUserInput = {};
+        const updates: UpdateUserInput & { [key: string]: any; } = {};
         Object.keys(value).forEach(key =>
         {
             if (!value[key]) return;
