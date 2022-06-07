@@ -12,6 +12,7 @@
         "@types/react": "^17.0.14",
         "antd": "^4.17.1",
         "authing-js-sdk": "^4.21.9",
+        "caniuse-lite": "^1.0.30001349",
         "chokidar": "^3.5.2",
         "crypto-js": "^4.1.1",
         "customize-cra": "^1.0.0",
