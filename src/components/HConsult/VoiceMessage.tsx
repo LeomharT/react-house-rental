@@ -2,7 +2,7 @@ import { AudioMutedOutlined, AudioOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { MessageType } from './HConsult';
 
 @observer
@@ -14,7 +14,7 @@ export default class VoiceMessage extends Component<{ SocketSendVoiceMessage: Fu
     GetMicroPhoneAuthority = async (): Promise<void> =>
     {
         const constraints = { audio: true };
-        let voice: any[] = [];
+        let voice: Blob[] = [];
         try
         {
             let stream = await navigator.mediaDevices.getUserMedia(constraints);
