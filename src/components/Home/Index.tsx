@@ -14,7 +14,7 @@ export default function Index()
         {
             history.push('/Home');
         }
-    }, [location.pathname,]);
+    }, [location.pathname, history]);
 
 
     return (
