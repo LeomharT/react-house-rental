@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HConsult from './components/HConsult/HConsult';
+import Index from './components/Home/Index';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import route, { RouteType } from './route/router';
@@ -30,6 +31,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Switch>
+                <Route path={'/'} exact={true} component={Index} />
                 {route.map((item: RouteType, index: number) =>
                 {
                     return (
